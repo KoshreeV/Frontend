@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Register</title>
-  <link rel="stylesheet" href="css/style.css">
+<title>Register</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
 <div class="container">
@@ -16,9 +15,16 @@
 <input id="regPassword" type="password" placeholder="Password">
 <input id="regConfirmPassword" type="password" placeholder="Confirm Password">
 
+<select id="role">
+<option value="EMPLOYEE">Employee</option>
+<option value="ADMIN">Admin</option>
+</select>
+
+<input id="adminCode" placeholder="Admin Code">
+
 <button onclick="register()">Register</button>
 
-<p>Already have an account?  
+<p>Already have an account?
 <a href="index.html">Login here</a></p>
 
 </div>

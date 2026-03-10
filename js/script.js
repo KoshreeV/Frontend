@@ -1,5 +1,4 @@
-const BASE_URL = "https://backend-a9pu.onrender.com/api/v1";
-
+const BASE_URL="https://backend-a9pu.onrender.com/api/v1";
 
 async function register(){
 
@@ -7,6 +6,8 @@ const name=document.getElementById("regName").value;
 const email=document.getElementById("regEmail").value;
 const password=document.getElementById("regPassword").value;
 const confirmPassword=document.getElementById("regConfirmPassword").value;
+const role=document.getElementById("role").value;
+const adminCode=document.getElementById("adminCode").value;
 
 if(!name||!email||!password||!confirmPassword){
 alert("Please fill all fields");
@@ -26,7 +27,9 @@ headers:{
 body:JSON.stringify({
 name,
 email,
-password
+password,
+role,
+adminCode
 })
 });
 
@@ -39,9 +42,7 @@ return;
 
 alert("Registration successful");
 window.location.href="index.html";
-
 }
-
 
 async function login(){
 
@@ -79,9 +80,7 @@ window.location.href="admin.html";
 }else{
 window.location.href="employee.html";
 }
-
 }
-
 
 async function createAnnouncement(){
 
@@ -116,10 +115,7 @@ return;
 
 alert("Announcement created");
 loadAnnouncements();
-
 }
-
-
 
 async function loadAnnouncements(){
 
@@ -165,11 +161,8 @@ ${localStorage.getItem("role")==="ADMIN" ? `
 </div>
 
 `;
-
 });
-
 }
-
 
 async function deleteAnnouncement(id){
 
@@ -191,9 +184,7 @@ return;
 
 alert("Deleted");
 loadAnnouncements();
-
 }
-
 
 async function editAnnouncement(id){
 
@@ -223,15 +214,12 @@ return;
 
 alert("Updated");
 loadAnnouncements();
-
 }
-
 
 function logout(){
 localStorage.clear();
 window.location.href="index.html";
 }
-
 
 if(document.getElementById("list")){
 loadAnnouncements();
