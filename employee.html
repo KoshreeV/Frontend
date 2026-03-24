@@ -1,45 +1,98 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Employee Dashboard</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus · Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
+<div class="dash-layout" id="layout">
 
-<div class="dashboard">
-  <header class="dashboard-header">
-    <h1><i class="fas fa-tachometer-alt"></i> Employee Dashboard</h1>
-    <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
-  </header>
+  <aside class="dash-sidebar">
+    <div class="sidebar-top">
+      <div class="sidebar-brand">
+        <div class="brand-mark sm">N</div>
+        <span class="brand-name">Nexus</span>
+      </div>
+      <button class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    </div>
 
-  <div class="dashboard-content">
-    <aside class="sidebar">
-      <nav>
-        <ul>
-          <li class="active"><i class="fas fa-bullhorn"></i> Announcements</li>
-          <li><i class="fas fa-user"></i> Profile</li>
-          <li><i class="fas fa-bell"></i> Notifications</li>
-        </ul>
-      </nav>
-    </aside>
+    <div class="sidebar-section">Workspace</div>
+    <nav class="sidebar-nav">
+      <a class="nav-item active">
+        <span class="nav-icon"><i class="fas fa-bullhorn"></i></span>
+        <span class="nav-label">Announcements</span>
+      </a>
+    </nav>
 
-    <main class="main-content">
-      <div class="welcome-section">
-        <h2><i class="fas fa-hand-wave"></i> Welcome back!</h2>
-        <p>Stay updated with the latest announcements from your organization.</p>
+    <div class="sidebar-section">Account</div>
+    <nav class="sidebar-nav">
+      <a class="nav-item danger" onclick="logout()">
+        <span class="nav-icon"><i class="fas fa-arrow-right-from-bracket"></i></span>
+        <span class="nav-label">Sign out</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-spacer"></div>
+    <div class="sidebar-user">
+      <div class="user-ava" id="sidebarAva">E</div>
+      <div class="user-meta">
+        <strong id="sidebarName">Employee</strong>
+        <span>Employee · Read access</span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="dash-main">
+    <header class="dash-topbar">
+      <div class="topbar-left">
+        <h1 id="greeting">Good morning! 👋</h1>
+        <p id="currentDate">Loading date…</p>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-stat">
+          <span id="tb-active">—</span>
+          <label>Active</label>
+        </div>
+      </div>
+    </header>
+
+    <div class="dash-content">
+
+      <!-- Welcome banner -->
+      <div class="welcome-banner">
+        <div class="welcome-text">
+          <h2>Today's Briefing</h2>
+          <p>You have <strong id="activeCount">—</strong> active announcements from your organization.</p>
+        </div>
+        <div class="welcome-icon-wrap">
+          <i class="fas fa-bullhorn"></i>
+        </div>
       </div>
 
-      <div class="section">
-        <h2><i class="fas fa-bullhorn"></i> Latest Announcements</h2>
-        <div id="list" class="announcements-list"></div>
+      <!-- Announcements -->
+      <div class="panel">
+        <div class="panel-hd">
+          <div class="panel-title"><i class="fas fa-rss"></i> Announcements</div>
+          <div class="panel-actions">
+            <div class="search-box">
+              <i class="fas fa-search"></i>
+              <input id="searchInput" type="text" placeholder="Search…" oninput="renderList()">
+            </div>
+          </div>
+        </div>
+        <div id="list" class="ann-list"></div>
       </div>
-    </main>
+
+    </div>
   </div>
 </div>
 
+<div id="toastContainer" class="toast-stack"></div>
 <script src="js/script.js"></script>
-
 </body>
 </html>

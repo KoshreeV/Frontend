@@ -1,74 +1,219 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus · Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
+<div class="dash-layout" id="layout">
 
-<div class="dashboard">
-  <header class="dashboard-header">
-    <h1><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h1>
-    <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
-  </header>
+  <!-- Sidebar -->
+  <aside class="dash-sidebar">
+    <div class="sidebar-top">
+      <div class="sidebar-brand">
+        <div class="brand-mark sm">N</div>
+        <span class="brand-name">Nexus</span>
+      </div>
+      <button class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    </div>
 
-  <div class="dashboard-content">
-    <aside class="sidebar">
-      <nav>
-        <ul>
-          <li class="active"><i class="fas fa-bullhorn"></i> Announcements</li>
-          <li><i class="fas fa-users"></i> Users</li>
-          <li><i class="fas fa-chart-bar"></i> Reports</li>
-        </ul>
-      </nav>
-    </aside>
+    <div class="sidebar-section">Workspace</div>
+    <nav class="sidebar-nav">
+      <a class="nav-item active">
+        <span class="nav-icon"><i class="fas fa-bullhorn"></i></span>
+        <span class="nav-label">Announcements</span>
+      </a>
+    </nav>
 
-    <main class="main-content">
-      <div class="stats-grid">
+    <div class="sidebar-section">Account</div>
+    <nav class="sidebar-nav">
+      <a class="nav-item danger" onclick="logout()">
+        <span class="nav-icon"><i class="fas fa-arrow-right-from-bracket"></i></span>
+        <span class="nav-label">Sign out</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-spacer"></div>
+    <div class="sidebar-user">
+      <div class="user-ava" id="sidebarAva">A</div>
+      <div class="user-meta">
+        <strong id="sidebarName">Administrator</strong>
+        <span>Admin · Full access</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="dash-main">
+    <header class="dash-topbar">
+      <div class="topbar-left">
+        <h1>Announcements</h1>
+        <p>Manage and broadcast messages to your team</p>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-stat">
+          <span id="tb-total">—</span>
+          <label>Total</label>
+        </div>
+        <div class="topbar-stat">
+          <span id="tb-active">—</span>
+          <label>Active</label>
+        </div>
+        <button class="topbar-ai-btn" onclick="toggleAiPanel()">
+          <i class="fas fa-sparkles"></i> AI Writer
+        </button>
+        <button class="topbar-btn" onclick="openCreateModal()">
+          <i class="fas fa-plus"></i> New
+        </button>
+      </div>
+    </header>
+
+    <div class="dash-content">
+
+      <!-- Stats -->
+      <div class="stat-row">
         <div class="stat-card">
-          <i class="fas fa-bullhorn stat-icon"></i>
-          <div class="stat-info">
-            <h3 id="total-announcements">0</h3>
-            <p>Total Announcements</p>
+          <div class="stat-icon indigo"><i class="fas fa-bullhorn"></i></div>
+          <div>
+            <div class="stat-num" id="stat-total">—</div>
+            <div class="stat-label">Total</div>
           </div>
         </div>
         <div class="stat-card">
-          <i class="fas fa-users stat-icon"></i>
-          <div class="stat-info">
-            <h3 id="total-users">0</h3>
-            <p>Total Users</p>
+          <div class="stat-icon green"><i class="fas fa-circle-check"></i></div>
+          <div>
+            <div class="stat-num" id="stat-active">—</div>
+            <div class="stat-label">Active</div>
           </div>
         </div>
         <div class="stat-card">
-          <i class="fas fa-calendar-check stat-icon"></i>
-          <div class="stat-info">
-            <h3 id="active-announcements">0</h3>
-            <p>Active Announcements</p>
+          <div class="stat-icon amber"><i class="fas fa-clock"></i></div>
+          <div>
+            <div class="stat-num" id="stat-expiring">—</div>
+            <div class="stat-label">Expiring this week</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon red"><i class="fas fa-calendar-xmark"></i></div>
+          <div>
+            <div class="stat-num" id="stat-expired">—</div>
+            <div class="stat-label">Expired</div>
           </div>
         </div>
       </div>
 
-      <div class="section">
-        <h2><i class="fas fa-plus-circle"></i> Create New Announcement</h2>
-        <form class="announcement-form">
-          <input id="title" placeholder="Announcement Title" required>
-          <textarea id="description" placeholder="Description" rows="4" required></textarea>
-          <input type="date" id="expiryDate" required>
-          <button type="button" onclick="createAnnouncement()" class="btn-primary"><i class="fas fa-paper-plane"></i> Create Announcement</button>
-        </form>
+      <!-- AI Panel -->
+      <div class="ai-panel" id="aiPanel" style="display:none">
+        <div class="ai-panel-hd">
+          <div class="ai-panel-hd-left">
+            <span class="ai-badge"><i class="fas fa-sparkles"></i> AI</span>
+            <div>
+              <h3>AI Announcement Writer</h3>
+              <p>Describe what you want to announce — AI drafts it for you</p>
+            </div>
+          </div>
+          <button class="ai-toggle" onclick="toggleAiPanel()">Close</button>
+        </div>
+        <div class="ai-body open">
+          <div class="ai-chips">
+            <button class="ai-chip" onclick="setPrompt(this.dataset.p)" data-p="Write an announcement about office maintenance scheduled for next week. Keep it professional and informative."><i class="fas fa-wrench"></i> Office maintenance</button>
+            <button class="ai-chip" onclick="setPrompt(this.dataset.p)" data-p="Write a holiday announcement informing employees about the upcoming public holiday, office closure dates, and emergency contact details."><i class="fas fa-calendar"></i> Holiday notice</button>
+            <button class="ai-chip" onclick="setPrompt(this.dataset.p)" data-p="Write an announcement welcoming a new team member joining the organization. Include excitement and encourage the team to make them feel welcome."><i class="fas fa-user-plus"></i> New team member</button>
+            <button class="ai-chip" onclick="setPrompt(this.dataset.p)" data-p="Write a policy update announcement about a new work-from-home guideline, keeping it clear, concise and actionable."><i class="fas fa-file-alt"></i> Policy update</button>
+            <button class="ai-chip" onclick="setPrompt(this.dataset.p)" data-p="Write an urgent announcement about a system outage or IT maintenance window that will affect company services temporarily."><i class="fas fa-exclamation-triangle"></i> Urgent notice</button>
+          </div>
+
+          <div class="ai-input-row">
+            <div class="field-wrap">
+              <input id="aiPrompt" type="text" class="no-icon" placeholder="e.g. Write an announcement about Q3 results — keep it motivational…" onkeydown="if(event.key==='Enter') aiGenerate()">
+            </div>
+            <button class="ai-send" id="aiSendBtn" onclick="aiGenerate()">
+              <i class="fas fa-sparkles"></i> Generate
+            </button>
+          </div>
+
+          <div class="ai-result" id="aiResult">
+            <div class="ai-result-hd">
+              <span><i class="fas fa-sparkles"></i> AI Draft — review before publishing</span>
+              <div class="ai-result-actions">
+                <button class="btn-ghost" onclick="aiGenerate()"><i class="fas fa-rotate"></i> Regenerate</button>
+                <button class="btn-cta sm" onclick="useAiDraft()"><i class="fas fa-arrow-up-right-from-square"></i> Use this</button>
+              </div>
+            </div>
+            <div class="ai-field">
+              <label>Title</label>
+              <div class="field-wrap"><input id="aiTitle" type="text" class="no-icon"></div>
+            </div>
+            <div class="ai-field">
+              <label>Description</label>
+              <div class="field-wrap"><textarea id="aiDesc" class="no-icon"></textarea></div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="section">
-        <h2><i class="fas fa-list"></i> All Announcements</h2>
-        <div id="list" class="announcements-list"></div>
+      <!-- Announcements Panel -->
+      <div class="panel">
+        <div class="panel-hd">
+          <div class="panel-title"><i class="fas fa-list-ul"></i> All Announcements</div>
+          <div class="panel-actions">
+            <div class="search-box">
+              <i class="fas fa-search"></i>
+              <input id="searchInput" type="text" placeholder="Search…" oninput="renderList()">
+            </div>
+            <div class="filter-tabs">
+              <button class="filter-tab active" onclick="setFilter('all',this)">All</button>
+              <button class="filter-tab" onclick="setFilter('active',this)">Active</button>
+              <button class="filter-tab" onclick="setFilter('expired',this)">Expired</button>
+            </div>
+          </div>
+        </div>
+        <div id="list" class="ann-list"></div>
       </div>
-    </main>
+
+    </div>
   </div>
 </div>
 
-<script src="js/script.js"></script>
+<!-- Create / Edit Modal -->
+<div class="modal-backdrop" id="modal" onclick="onBackdropClick(event)">
+  <div class="modal">
+    <div class="modal-hd">
+      <h3 id="modalTitle"><i class="fas fa-plus-circle"></i> New Announcement</h3>
+      <button class="modal-close" onclick="closeModal()"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-field">
+        <label>Title</label>
+        <div class="field-wrap"><input id="mTitle" type="text" class="no-icon" placeholder="e.g. Office closed on Friday"></div>
+      </div>
+      <div class="form-field">
+        <label>Description</label>
+        <div class="field-wrap"><textarea id="mDesc" class="no-icon" rows="4" placeholder="Write the full announcement content here…"></textarea></div>
+      </div>
+      <div class="form-field">
+        <label>Expiry date</label>
+        <div class="field-wrap">
+          <input id="mExpiry" type="date">
+          <i class="fas fa-calendar field-icon"></i>
+        </div>
+      </div>
+    </div>
+    <div class="modal-ft">
+      <button class="btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn-cta sm" id="modalSubmit" onclick="submitModal()">
+        <i class="fas fa-paper-plane"></i> <span>Publish</span>
+      </button>
+    </div>
+  </div>
+</div>
 
+<div id="toastContainer" class="toast-stack"></div>
+<script src="js/script.js"></script>
 </body>
 </html>

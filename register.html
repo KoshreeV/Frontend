@@ -1,54 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Register</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus · Create Account</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body class="auth-body">
 
-<div class="container">
-
-<h2><i class="fas fa-user-plus"></i> Register</h2>
-
-<div class="input-group">
-  <i class="fas fa-user input-icon"></i>
-  <input id="regName" placeholder="Name" required>
-</div>
-<div class="input-group">
-  <i class="fas fa-envelope input-icon"></i>
-  <input id="regEmail" placeholder="Email" required>
-</div>
-<div class="input-group">
-  <i class="fas fa-lock input-icon"></i>
-  <input id="regPassword" type="password" placeholder="Password" required>
-</div>
-<div class="input-group">
-  <i class="fas fa-lock input-icon"></i>
-  <input id="regConfirmPassword" type="password" placeholder="Confirm Password" required>
+<div class="auth-left">
+  <div class="auth-brand">
+    <div class="brand-mark">N</div>
+    <span class="brand-name">Nexus</span>
+  </div>
+  <div class="auth-hero">
+    <h1>Join your<br><em>team today.</em></h1>
+    <p>Get instant access to your organization's announcements, AI writing tools, and real-time updates.</p>
+    <ul class="feature-list">
+      <li><i class="fas fa-users"></i> Team-wide visibility</li>
+      <li><i class="fas fa-user-shield"></i> Admin &amp; Employee roles</li>
+      <li><i class="fas fa-sparkles"></i> AI announcement writer</li>
+      <li><i class="fas fa-clock"></i> Expiry-based filtering</li>
+    </ul>
+  </div>
 </div>
 
-<div class="input-group">
-  <i class="fas fa-user-tag input-icon"></i>
-  <select id="role" required>
-    <option value="EMPLOYEE">Employee</option>
-    <option value="ADMIN">Admin</option>
-  </select>
+<div class="auth-right">
+  <div class="auth-card">
+    <div class="auth-card-hd">
+      <h2>Create account</h2>
+      <p>Fill in your details to get started</p>
+    </div>
+
+    <div class="form-row">
+      <div class="form-field">
+        <label>Full name</label>
+        <div class="field-wrap">
+          <input id="regName" type="text" placeholder="Jane Smith" autocomplete="name">
+          <i class="fas fa-user field-icon"></i>
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Role</label>
+        <div class="field-wrap select-wrap">
+          <select id="role" onchange="onRoleChange(this.value)">
+            <option value="EMPLOYEE">Employee</option>
+            <option value="ADMIN">Admin</option>
+          </select>
+          <i class="fas fa-user-tag field-icon"></i>
+          <i class="fas fa-chevron-down select-arrow"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label>Email address</label>
+      <div class="field-wrap">
+        <input id="regEmail" type="email" placeholder="you@company.com" autocomplete="email">
+        <i class="fas fa-at field-icon"></i>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-field">
+        <label>Password</label>
+        <div class="field-wrap">
+          <input id="regPassword" type="password" placeholder="Min. 8 characters">
+          <i class="fas fa-lock field-icon"></i>
+          <button class="field-toggle" onclick="togglePwd('regPassword',this)" tabindex="-1"><i class="fas fa-eye"></i></button>
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Confirm password</label>
+        <div class="field-wrap">
+          <input id="regConfirmPassword" type="password" placeholder="Repeat password">
+          <i class="fas fa-lock field-icon"></i>
+          <button class="field-toggle" onclick="togglePwd('regConfirmPassword',this)" tabindex="-1"><i class="fas fa-eye"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-field" id="adminCodeWrap" style="display:none">
+      <label>Admin code <span class="label-note">— required for admin accounts</span></label>
+      <div class="field-wrap">
+        <input id="adminCode" type="text" placeholder="Enter your admin access code">
+        <i class="fas fa-key field-icon"></i>
+      </div>
+    </div>
+
+    <button class="btn-cta" id="registerBtn" onclick="register()">
+      <i class="fas fa-paper-plane"></i> Create account
+    </button>
+
+    <p class="auth-switch" style="margin-top:1rem">Already have an account? <a href="index.html">Sign in →</a></p>
+  </div>
 </div>
 
-<div class="input-group">
-  <i class="fas fa-key input-icon"></i>
-  <input id="adminCode" placeholder="Admin Code" required>
-</div>
-
-<button onclick="register()"><i class="fas fa-paper-plane"></i> Register</button>
-
-<p>Already have an account?
-<a href="index.html">Login here</a></p>
-
-</div>
-
+<div id="toastContainer" class="toast-stack"></div>
 <script src="js/script.js"></script>
-
 </body>
 </html>

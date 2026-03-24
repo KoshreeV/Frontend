@@ -1,34 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Login</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus · Sign In</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
+<body class="auth-body">
 
-<body>
-
-<div class="container">
-
-<h2><i class="fas fa-sign-in-alt"></i> Login</h2>
-
-<div class="input-group">
-  <i class="fas fa-envelope input-icon"></i>
-  <input id="email" placeholder="Email" required>
-</div>
-<div class="input-group">
-  <i class="fas fa-lock input-icon"></i>
-  <input id="password" type="password" placeholder="Password" required>
-</div>
-
-<button onclick="login()"><i class="fas fa-arrow-right"></i> Login</button>
-
-<p>Don't have an account?  
-<a href="register.html">Register here</a></p>
-
+<!-- Left decorative panel -->
+<div class="auth-left">
+  <div class="auth-brand">
+    <div class="brand-mark">N</div>
+    <span class="brand-name">Nexus</span>
+  </div>
+  <div class="auth-hero">
+    <h1>Your team.<br><em>Always informed.</em></h1>
+    <p>One platform to manage, broadcast, and track all organizational announcements — with AI that writes them for you.</p>
+    <ul class="feature-list">
+      <li><i class="fas fa-bolt"></i> Instant announcement broadcasts</li>
+      <li><i class="fas fa-shield-halved"></i> Role-based access control</li>
+      <li><i class="fas fa-sparkles"></i> AI-powered content generation</li>
+      <li><i class="fas fa-calendar-check"></i> Smart expiry management</li>
+    </ul>
+  </div>
 </div>
 
+<!-- Right form panel -->
+<div class="auth-right">
+  <div class="auth-card">
+    <div class="auth-card-hd">
+      <h2>Welcome back</h2>
+      <p>Sign in to continue to your workspace</p>
+    </div>
+
+    <div class="form-field">
+      <label>Email address</label>
+      <div class="field-wrap">
+        <input id="email" type="email" placeholder="you@company.com" autocomplete="email">
+        <i class="fas fa-at field-icon"></i>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label>Password</label>
+      <div class="field-wrap">
+        <input id="password" type="password" placeholder="••••••••" autocomplete="current-password">
+        <i class="fas fa-lock field-icon"></i>
+        <button class="field-toggle" onclick="togglePwd('password',this)" tabindex="-1"><i class="fas fa-eye"></i></button>
+      </div>
+    </div>
+
+    <button class="btn-cta" id="loginBtn" onclick="login()">
+      <i class="fas fa-arrow-right-to-bracket"></i> Sign in
+    </button>
+
+    <div class="auth-divider"><span>or</span></div>
+    <p class="auth-switch">Don't have an account? <a href="register.html">Create one →</a></p>
+  </div>
+</div>
+
+<div id="toastContainer" class="toast-stack"></div>
 <script src="js/script.js"></script>
-
 </body>
 </html>
