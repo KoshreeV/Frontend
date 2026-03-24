@@ -153,8 +153,8 @@ ${localStorage.getItem("role")==="ADMIN" ? `
 
 <br><br>
 
-<button onclick="editAnnouncement('${a._id}')">Edit</button>
-<button onclick="deleteAnnouncement('${a._id}')">Delete</button>
+<button onclick="editAnnouncement('${a._id}')" class="btn-edit"><i class="fas fa-edit"></i> Edit</button>
+<button onclick="deleteAnnouncement('${a._id}')" class="btn-delete"><i class="fas fa-trash"></i> Delete</button>
 
 ` : ""}
 
@@ -162,6 +162,15 @@ ${localStorage.getItem("role")==="ADMIN" ? `
 
 `;
 });
+
+// Update stats if on admin page
+if(localStorage.getItem("role")==="ADMIN" && document.getElementById("total-announcements")){
+document.getElementById("total-announcements").textContent = data.length;
+const active = data.filter(a => new Date(a.expiryDate) > new Date()).length;
+document.getElementById("active-announcements").textContent = active;
+// For users, since no API, set to placeholder
+document.getElementById("total-users").textContent = "N/A";
+}
 }
 
 async function deleteAnnouncement(id){

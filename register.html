@@ -3,26 +3,45 @@
 <head>
 <title>Register</title>
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
 <div class="container">
 
-<h2>Register</h2>
+<h2><i class="fas fa-user-plus"></i> Register</h2>
 
-<input id="regName" placeholder="Name">
-<input id="regEmail" placeholder="Email">
-<input id="regPassword" type="password" placeholder="Password">
-<input id="regConfirmPassword" type="password" placeholder="Confirm Password">
+<div class="input-group">
+  <i class="fas fa-user input-icon"></i>
+  <input id="regName" placeholder="Name" required>
+</div>
+<div class="input-group">
+  <i class="fas fa-envelope input-icon"></i>
+  <input id="regEmail" placeholder="Email" required>
+</div>
+<div class="input-group">
+  <i class="fas fa-lock input-icon"></i>
+  <input id="regPassword" type="password" placeholder="Password" required>
+</div>
+<div class="input-group">
+  <i class="fas fa-lock input-icon"></i>
+  <input id="regConfirmPassword" type="password" placeholder="Confirm Password" required>
+</div>
 
-<select id="role">
-<option value="EMPLOYEE">Employee</option>
-<option value="ADMIN">Admin</option>
-</select>
+<div class="input-group">
+  <i class="fas fa-user-tag input-icon"></i>
+  <select id="role" required>
+    <option value="EMPLOYEE">Employee</option>
+    <option value="ADMIN">Admin</option>
+  </select>
+</div>
 
-<input id="adminCode" placeholder="Admin Code">
+<div class="input-group">
+  <i class="fas fa-key input-icon"></i>
+  <input id="adminCode" placeholder="Admin Code" required>
+</div>
 
-<button onclick="register()">Register</button>
+<button onclick="register()"><i class="fas fa-paper-plane"></i> Register</button>
 
 <p>Already have an account?
 <a href="index.html">Login here</a></p>

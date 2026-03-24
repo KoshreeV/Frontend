@@ -3,26 +3,69 @@
 <head>
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
 
-<div class="container">
+<div class="dashboard">
+  <header class="dashboard-header">
+    <h1><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h1>
+    <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+  </header>
 
-<h2>Create Announcement</h2>
+  <div class="dashboard-content">
+    <aside class="sidebar">
+      <nav>
+        <ul>
+          <li class="active"><i class="fas fa-bullhorn"></i> Announcements</li>
+          <li><i class="fas fa-users"></i> Users</li>
+          <li><i class="fas fa-chart-bar"></i> Reports</li>
+        </ul>
+      </nav>
+    </aside>
 
-<input id="title" placeholder="Title">
-<input id="description" placeholder="Description">
-<input type="date" id="expiryDate">
+    <main class="main-content">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <i class="fas fa-bullhorn stat-icon"></i>
+          <div class="stat-info">
+            <h3 id="total-announcements">0</h3>
+            <p>Total Announcements</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-users stat-icon"></i>
+          <div class="stat-info">
+            <h3 id="total-users">0</h3>
+            <p>Total Users</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <i class="fas fa-calendar-check stat-icon"></i>
+          <div class="stat-info">
+            <h3 id="active-announcements">0</h3>
+            <p>Active Announcements</p>
+          </div>
+        </div>
+      </div>
 
-<button onclick="createAnnouncement()">Create</button>
+      <div class="section">
+        <h2><i class="fas fa-plus-circle"></i> Create New Announcement</h2>
+        <form class="announcement-form">
+          <input id="title" placeholder="Announcement Title" required>
+          <textarea id="description" placeholder="Description" rows="4" required></textarea>
+          <input type="date" id="expiryDate" required>
+          <button type="button" onclick="createAnnouncement()" class="btn-primary"><i class="fas fa-paper-plane"></i> Create Announcement</button>
+        </form>
+      </div>
 
-<h2>All Announcements</h2>
-
-<div id="list"></div>
-
-<button class="logout" onclick="logout()">Logout</button>
-
+      <div class="section">
+        <h2><i class="fas fa-list"></i> All Announcements</h2>
+        <div id="list" class="announcements-list"></div>
+      </div>
+    </main>
+  </div>
 </div>
 
 <script src="js/script.js"></script>
